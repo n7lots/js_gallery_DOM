@@ -5,21 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbs = document.querySelector('#thumbs');
 
   thumbs.addEventListener('click', (ev) => {
-    ev.preventDefault();
+    const link = ev.target.closest('a');
 
-    let link;
-    const tName = ev.target.tagName;
-
-    if (tName === 'IMG') {
-      link = ev.target.parentNode;
-    } else if (tName === 'A') {
-      link = ev.target;
-    }
-
-    if (!link) {
+    if (!link || !thumbs.contains(link)) {
       return;
     }
 
+    ev.preventDefault();
+
+    const thumbImg = link.querySelector('img');
+
     largeImg.src = link.href;
+    largeImg.alt = thumbImg?.alt || '';
   });
 });
